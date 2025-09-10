@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import { FokusButton } from "../components/FokusButton";
+import { ActionButton } from "../components/ActionButton";
 const pomodoro = [{
   id: "foco",
   initialValue: 25,
@@ -31,17 +33,12 @@ export default function Index() {
       <View style={styles.actions} >
         <View style={styles.context}>
           {pomodoro.map(p => (
-            <Pressable key={p.id} style={timerType.id === p.id ? styles.contextButtonTextActive : null}
-              onPress={() => setTimerType(p)}>
-              <Text style={styles.contextButtonText}>{p.name}</Text>
-            </Pressable>
+            <ActionButton key={p.id} active={timerType.id === p.id} onPress={()=>setTimerType(p)} name={p.name}></ActionButton>
           ))}
         </View>
         <Text style={styles.timer}>{new Date(timerType.initialValue * 1000).toLocaleTimeString("pt-BR", { minute: "2-digit", second: "2-digit" })}</Text>
 
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Começar</Text>
-        </Pressable>
+        <FokusButton />
       </View>
       <View style={styles.footer}>
         <Text style={styles.footerText}>
@@ -77,32 +74,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center"
   },
-  contextButtonText: {
-    fontSize: 12.5,
-    color: "#FFF",
-    padding: 8
-  },
-  contextButtonTextActive: {
-    backgroundColor: "#144480",
-    borderRadius: 8
-  },
+
   timer: {
     fontWeight: "bold",
     fontSize: 54,
     color: "#FFF",
     textAlign: "center"
-  },
-  button: {
-    borderRadius: 32,
-    padding: 8,
-    backgroundColor: "#BB72FF",
-  },
-  buttonText: {
-    color: "#021123",
-    textAlign: "center",
-    fontSize: 18,
-    fontWeight: "bold",
-
   },
   footer: {
     width: "80%"
